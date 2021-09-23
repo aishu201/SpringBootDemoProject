@@ -11,17 +11,14 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "employee")
-public class Employee {
-
-
+public class Employee
+{
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Integer empId;
 
-
         private String firstName;
         private String lastName;
-
         private String email;
 
         @NotNull
@@ -33,8 +30,7 @@ public class Employee {
         private String address;
         private String department;
         private String companyId;
-
-
+        
         @OneToOne(fetch = FetchType.EAGER)
         @JoinColumn(name = "role_id",nullable = true)
         private Role role1;
