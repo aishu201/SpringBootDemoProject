@@ -4,8 +4,10 @@ import com.example.SpringBootDemoProject.entity.Employee;
 import com.sun.org.apache.bcel.internal.generic.ARETURN;
 import org.hibernate.sql.Select;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,7 +26,9 @@ public interface EmployeeRepository extends JpaRepository<Employee,Integer>
     @Query(value = "SELECT * FROM employee WHERE LOWER(email) = LOWER(:email)",nativeQuery = true)
     public Employee findByEmail(@Param("email") String email );
 
-
-
-
+//    deleting multiple records
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM employee WHERE emp_id BETWEEN (:fromEmpId) AND (:toEmpId)",nativeQuery = true)
+     void deleteMultipleId(@Param("fromEmpId") Integer fromEmpId, @Param("toEmpId") Integer toEmpId);
 }
